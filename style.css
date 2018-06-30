@@ -1,0 +1,12 @@
+ #characterRow{
+        width:100%;
+        display:inline-flex;
+    }
+    .characterBox{
+        width:25%;
+        text-align: center;
+        border:2px solid black;
+    }
+    #available-enemies{
+        float:right;
+    }
