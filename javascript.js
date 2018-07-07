@@ -4,24 +4,28 @@ const characters={
         name:"dragon breathe",
         age:103,
         attack:40,
+        img:"./char1.JPG",
         defense:10,
         health:50
 },"quick jack":{
         name:"quick jack",
         age:20,
         attack:30,
+        img:"./char2.JPG",
         defense:40,
         health:50
     },"leaping laura":{
         name:"leaping laura",
         age:30,
         attack:60,
+        img:"./char3.JPG",
         defense:20,
         health:50
     },"powerful czar":{
         name:"powerful czar",
         age:50,
         attack:50,
+        img:"./char4.JPG",
         defense:10,
         health:50
     }}
@@ -41,8 +45,10 @@ const characters={
         var charDefense= $("<div class='character-defense'>").text("Defense: "+charObj.defense);
         var charHealth= $("<div class='character-health'>").text("Health: "+charObj.health);
 
+        var charImg=$("<img src="+charObj.img+" alt='Character Image' class='charImage'>")
+
      
-                $(char).append(charName).append(charAge).append(charAttack).append(charDefense).append(charHealth);
+                $(char).append(charName).append(charImg).append(charAge).append(charAttack).append(charDefense).append(charHealth);
                 $(areaDisplay).append(char)
 
                 if(status==="selectedCharacter"){

@@ -2,6 +2,9 @@
         width:100%;
         display:inline-flex;
     }
+    #characterList{
+        display: inline-flex;
+    }
     .characterBox{
         width:25%;
         text-align: center;
@@ -9,4 +12,12 @@
     }
     #available-enemies{
         float:right;
+    }
+    .charImage{
+        height:100px;
+        width:100px;
+    }
+    .character{
+        border: 1px solid black;
+        width:100px;
     }
