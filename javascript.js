@@ -4,48 +4,48 @@ const characters={
         name:"dragon breathe",
         age:103,
         attack:40,
-        img:"./char1.JPG",
+        img:"./images/char1.JPG",
         defense:10,
         health:50
 },"quick jack":{
         name:"quick jack",
         age:20,
         attack:30,
-        img:"./char2.JPG",
+        img:"./images/char2.JPG",
         defense:40,
         health:50
     },"leaping laura":{
         name:"leaping laura",
         age:30,
         attack:60,
-        img:"./char3.JPG",
+        img:"./images/char3.JPG",
         defense:20,
         health:50
     },"powerful czar":{
         name:"powerful czar",
         age:50,
         attack:50,
-        img:"./char4.JPG",
+        img:"./images/char4.JPG",
         defense:10,
         health:50
     }}
 
-    var selectedCharacter;
-    var enemyCharacter;
-    var enemyArr=[]
+    let selectedCharacter;
+    let enemyCharacter;
+    let enemyArr=[]
 
 
 
-    var renderOne= function(charObj,areaDisplay,status){
+    let renderOne= function(charObj,areaDisplay,status){
         console.log(charObj.name)
-        var char = $("<div class='character' data-name='"+charObj.name+"'>");
-        var charName=$("<div class='character-name'>").text(charObj.name);
-        var charAge=$("<div class='character-age'>").text("Age: "+charObj.age);
-        var charAttack = $("<div class='character-attack'>").text("attack "+charObj.attack);
-        var charDefense= $("<div class='character-defense'>").text("Defense: "+charObj.defense);
-        var charHealth= $("<div class='character-health'>").text("Health: "+charObj.health);
+        let char = $("<div class='character' data-name='"+charObj.name+"'>");
+        let charName=$("<div class='character-name'>").text(charObj.name);
+        let charAge=$("<div class='character-age'>").text("Age: "+charObj.age);
+        let charAttack = $("<div class='character-attack'>").text("attack "+charObj.attack);
+        let charDefense= $("<div class='character-defense'>").text("Defense: "+charObj.defense);
+        let charHealth= $("<div class='character-health'>").text("Health: "+charObj.health);
 
-        var charImg=$("<img src="+charObj.img+" alt='Character Image' class='charImage'>")
+        let charImg=$("<img src="+charObj.img+" alt='Character Image' class='charImage'>")
 
      
                 $(char).append(charName).append(charImg).append(charAge).append(charAttack).append(charDefense).append(charHealth);
@@ -75,9 +75,9 @@ const characters={
 
 
 
-    var renderChar = function(charObj, areaDisplay,status){
+    let renderChar = function(charObj, areaDisplay,status){
         if(areaDisplay === "#characterList"){
-            for(var key in charObj){
+            for(let key in charObj){
                 renderOne(charObj[key],areaDisplay,"")
             }
         }
@@ -88,7 +88,7 @@ const characters={
 
         }
         else if(areaDisplay === "#available-enemies"){
-            for(var i=0;i<enemyArr.length;i++){
+            for(let i=0;i<enemyArr.length;i++){
                 renderOne(enemyArr[i],"#available-enemies",status)
             }
         }
@@ -97,7 +97,7 @@ const characters={
         }
 
         $(".character").on("click",function(){
-            var name=$(this).data("name");
+            let name=$(this).data("name");
             if(!selectedCharacter){
                 selectedCharacter = characters[$(this).data("name")]
                
@@ -105,7 +105,7 @@ const characters={
             console.log(selectedCharacter)
             $("#characterList").hide()
 
-            for(var key in characters){
+            for(let key in characters){
                 if(key !=name){
                     enemyArr.push(characters[key])
                 }
@@ -127,10 +127,15 @@ const characters={
          }
             $("#available-enemies").hide()
             renderOne(enemyCharacter,"#selectedEnemy","selectedEnemy")
+            let btnDiv=$("<div>");
+                btnDiv.addClass("btnDiv");
+
             let attackBtn=$("<button>");
                         attackBtn.addClass("attackBtn");
                         attackBtn.text("Attack");
-                        $("#selectedCharacter").append(attackBtn)
+
+                $(btnDiv).html(attackBtn);
+                        $("#selectedCharacter").append(btnDiv)
 
                         $(".attackBtn").on("click",function(e){
                             e.preventDefault()
@@ -141,13 +146,15 @@ const characters={
 
     }
 
+ 
+
 
     function beginBattle(){
         console.log(selectedCharacter);
         console.log(enemyCharacter)
 
-        var At = getScore(selectedCharacter.attack,selectedCharacter.defense)
-        var En = getScore(enemyCharacter.attack,enemyCharacter.defense)
+        let At = getScore(selectedCharacter.attack,selectedCharacter.defense)
+        let En = getScore(enemyCharacter.attack,enemyCharacter.defense)
 
          if(At>En){update("win")}else{update("loss")}
         
@@ -164,6 +171,8 @@ const characters={
                     renderOne(enemyCharacter,".selectedEnemy","updateSelect")
                     $(".attackBtn").attr("disabled","disabled")
                     alert("youwin!")
+                    console.log(enemyArr)
+                    updateEnemyArr()
                 }
                 else{
                  renderOne(enemyCharacter,".selectedEnemy","updateSelect")
@@ -174,8 +183,9 @@ const characters={
                 if(selectedCharacter.health <=0){
                     selectedCharacter.health=0;
                     renderOne(selectedCharacter,".selectedCharacter","updateSelect")
-$(".attackBtn").attr("disabled","disabled")
+                $(".attackBtn").attr("disabled","disabled")
                     alert("you lose!")
+                    
                 }else{
                      renderOne(selectedCharacter,".selectedCharacter","updateSelect")
                 }
@@ -189,9 +199,39 @@ $(".attackBtn").attr("disabled","disabled")
         
     }
 
-    function getScore(attackNum,defenseNum){
-        var x =Math.floor(Math.random()*attackNum);
-        var y =Math.floor(Math.random()*defenseNum);
+    //if you defeat a character then if removes that character from the array of enemies. It then runs a function
+    //to populate the remaining enemies to choose to fight against until all have been defeated.
+           function updateEnemyArr(){
+        if(enemyArr.length == 0){
+            alert("You won the tournament!")
+        }else{
+            let gg=enemyArr.findIndex(x=> x.name === enemyCharacter.name);
+            console.log(gg)
+            enemyArr.splice(gg,1);
+            console.log("_____________")
+            console.log(enemyArr)
+            console.log(enemyCharacter.name)
+            enemyCharacter='';
+            clearSections()
+          
+            renderChar(enemyArr,"#available-enemies","enemy")
+        }
+    }
+
+    
+    //emptys divs ----
+    function clearSections(){
+    $(".btnDiv").empty()
+      $("#available-enemies").empty()
+            $("#selectedEnemy").empty()
+            $("#available-enemies").show()
+}
+    
+
+//calculates score to determine who will gain or lose points
+function getScore(attackNum,defenseNum){
+        let x =Math.floor(Math.random()*attackNum);
+        let y =Math.floor(Math.random()*defenseNum);
         return x+y;
     }
 renderChar(characters,"#characterList")
