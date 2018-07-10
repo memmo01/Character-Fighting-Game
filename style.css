@@ -4,6 +4,8 @@
     }
     #characterList{
         display: inline-flex;
+        width:80%;
+        margin-left:10%;
     }
     .characterBox{
         width:25%;
@@ -14,10 +16,44 @@
         float:right;
     }
     .charImage{
-        height:100px;
-        width:100px;
+        height:200px;
+        width:199px;
     }
-    .character{
-        border: 1px solid black;
-        width:100px;
+   .character,.selectedCharacter, .selectedEnemy{
+        width:200px;
+        text-align: center;
+        margin-left:5%;
+        border:2px solid black;
     }
+  
+    
+   .character-name{
+         font-size: 30px;
+     }
+
+     .character-age, .character-attack, .character-defense, .character-health{
+         font-size: 20px
+     }
+        #Vs{
+            display:none;
+            padding:50px 35px 50px 50px;
+            text-align: center;
+        }
+        .fightingArea{
+            display:inline-flex;
+            width:80%;
+            margin-left:10%;
+        }
+        #selectedCharacter{
+            margin-left:25%;
+            text-align: center;
+             /* width:33%;  */
+        }
+            .attackBtn{
+                background-color: red;
+                margin-left:5%;
+                width:204px;
+
+            }
+    
+        

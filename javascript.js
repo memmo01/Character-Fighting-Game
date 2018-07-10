@@ -1,28 +1,28 @@
 $(document).ready(function() {
 const characters={
-    "dragon breathe":{
-        name:"dragon breathe",
+    "Dragon Breathe":{
+        name:"Dragon Breathe",
         age:103,
         attack:40,
         img:"./images/char1.JPG",
         defense:10,
         health:50
-},"quick jack":{
-        name:"quick jack",
+},"Quick Jack":{
+        name:"Quick Jack",
         age:20,
         attack:30,
         img:"./images/char2.JPG",
         defense:40,
         health:50
-    },"leaping laura":{
-        name:"leaping laura",
+    },"Leaping Laura":{
+        name:"Leaping Laura",
         age:30,
         attack:60,
         img:"./images/char3.JPG",
         defense:20,
         health:50
-    },"powerful czar":{
-        name:"powerful czar",
+    },"Powerful Czar":{
+        name:"Powerful Czar",
         age:50,
         attack:50,
         img:"./images/char4.JPG",
@@ -56,6 +56,8 @@ const characters={
                 }
                 if(status==="updateSelect"){
                     $(areaDisplay).html(char)
+                    $(".character").css("margin-left","0")
+                    $(".character").css("border","none")
                      
                 }
                 if(status === "enemy"){
@@ -66,6 +68,8 @@ const characters={
                 }
                 if(status === "selectedEnemy"){
                     $(char).attr("class","selectedEnemy");
+                    $("#Vs").css("display","block")
+                   
                  
                     
                    
@@ -96,7 +100,10 @@ const characters={
             renderOne(charObj, "#selectedEnemy","")
         }
 
+
+
         $(".character").on("click",function(){
+            $("#title").html("<h3>Choose Your Enemy</h3>")
             let name=$(this).data("name");
             if(!selectedCharacter){
                 selectedCharacter = characters[$(this).data("name")]
@@ -121,6 +128,7 @@ const characters={
         
 
         $(".enemies").on("click",function(){
+            $("#title").css("display","none")
          if(!enemyCharacter){
                 enemyCharacter=characters[($(this).data("name"))]
                 console.log(enemyCharacter)
@@ -130,7 +138,7 @@ const characters={
             let btnDiv=$("<div>");
                 btnDiv.addClass("btnDiv");
 
-            let attackBtn=$("<button>");
+            let attackBtn=$("<div>");
                         attackBtn.addClass("attackBtn");
                         attackBtn.text("Attack");
 
@@ -175,6 +183,7 @@ const characters={
                     updateEnemyArr()
                 }
                 else{
+                    
                  renderOne(enemyCharacter,".selectedEnemy","updateSelect")
                 }
             }
